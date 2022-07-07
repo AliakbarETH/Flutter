@@ -72,17 +72,17 @@ class _loginPageState extends State<loginPage> {
                 width: changeButton ? 100 : 150,
                 height: 40,
                 alignment: Alignment.center,
+                child: Text(
+                  "Login here man!",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.deepOrangeAccent,
                   shape: changeButton ? BoxShape.circle : BoxShape.rectangle,
                   // borderRadius: BorderRadius.circular(changeButton ? 20 : 8)),
-                  child: Text(
-                    "Login here man!",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
                 ),
               ),
 
