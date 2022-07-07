@@ -9,11 +9,32 @@ class loginPage extends StatefulWidget {
 class _loginPageState extends State<loginPage> {
   String myName = "";
   bool changeButton = false;
+  final _key = GlobalKey<FormState>();
+
+  moveToHome(BuildContext context) async {
+    if (_key.currentState!.validate()) {
+      setState(() {
+        changeButton = false;
+      });
+
+      await Future.delayed(Duration(seconds: 1));
+
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    } else {
+      print("Sorry you are invalid");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: Colors.white,
+      color: Colors.white,
+      child: SingleChildScrollView(
+          child: Form(
+        key: _key,
         child: Column(
           children: [
             Image.asset(
@@ -41,6 +62,13 @@ class _loginPageState extends State<loginPage> {
                       hintText: "Enter User Name",
                       labelText: "User Name",
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return " User name cannot be empty";
+                      } else {
+                        return null;
+                      }
+                    },
                     onChanged: (value) {
                       myName = value;
                       setState(() {});
@@ -52,6 +80,15 @@ class _loginPageState extends State<loginPage> {
                       hintText: "Enter Password",
                       labelText: "Password",
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Password can not be empty";
+                      } else if (value.length < 6) {
+                        return "Password length should be atleast 6";
+                      }
+
+                      return null;
+                    },
                   ),
                 ],
               ),
@@ -59,48 +96,41 @@ class _loginPageState extends State<loginPage> {
             SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () async {
-                setState(() {
-                  changeButton = true;
-                });
-
-                await Future.delayed(Duration(seconds: 1));
-
-                Navigator.pushNamed(context, MyRoutes.homeRoute);
-              },
-              child: Ink(
-                // duration: Duration(seconds: 1),
-                width: changeButton ? 100 : 150,
-                height: 40,
-                // alignment: Alignment.center,
-                child: changeButton
-                    ? Icon(
-                        Icons.done,
-                        color: Colors.white,
-                      )
-                    : Text(
-                        "Login here man!",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
-                  shape: changeButton ? BoxShape.circle : BoxShape.rectangle,
-                  // borderRadius: BorderRadius.circular(changeButton ? 20 : 8)),
+            Material(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(changeButton ? 50 : 8),
+              child: InkWell(
+                onTap: () => moveToHome(context),
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  width: changeButton ? 100 : 150,
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: changeButton
+                      ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                      : Text(
+                          "Login here man!",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
                 ),
-              ),
 
-              //     ElevatedButton(
-              //         onPressed: () {
-              //           Navigator.pushNamed(context, MyRoutes.homeRoute);
-              //         },
-              //         child: Text("login"),
-              //         style: TextButton.styleFrom()),
+                //     ElevatedButton(
+                //         onPressed: () {
+                //           Navigator.pushNamed(context, MyRoutes.homeRoute);
+                //         },
+                //         child: Text("login"),
+                //         style: TextButton.styleFrom()),
+              ),
             )
           ],
-        ));
+        ),
+      )),
+    );
   }
 }
