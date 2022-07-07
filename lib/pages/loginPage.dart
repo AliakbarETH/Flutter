@@ -69,11 +69,11 @@ class _loginPageState extends State<loginPage> {
 
                 Navigator.pushNamed(context, MyRoutes.homeRoute);
               },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 1),
+              child: Ink(
+                // duration: Duration(seconds: 1),
                 width: changeButton ? 100 : 150,
                 height: 40,
-                alignment: Alignment.center,
+                // alignment: Alignment.center,
                 child: changeButton
                     ? Icon(
                         Icons.done,
