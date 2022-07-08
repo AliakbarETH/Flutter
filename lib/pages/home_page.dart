@@ -3,6 +3,8 @@ import 'package:flutter_practice/pages/loginPage.dart';
 import 'package:flutter_practice/pages/routes.dart';
 import 'package:flutter_practice/pages/routes.dart';
 
+import '../widgets/drawer.dart';
+
 class HomePage extends StatelessWidget {
   final int a = 30;
 
@@ -21,7 +23,8 @@ class HomePage extends StatelessWidget {
           child: Text("Welcome to flutter bhai $a"),
         ),
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
+
       /*routes: {
         MyRoutes.homeRoute: (context) => HomePage(),
         MyRoutes.loginRoute: (context) => loginPage(),
